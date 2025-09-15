@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Number System Converter</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #3a6186, #89253e);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+
+  .container {
+    background: white;
+    border-radius: 15px;
+    max-width: 700px;
+    width: 100%;
+    padding: 40px 50px;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 0.15);
+    transition: box-shadow 0.3s ease;
+  }
+  .container:hover {
+    box-shadow: 0 30px 50px rgb(0 0 0 / 0.2);
+  }
+
+  h1 {
+    color: #222;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 35px;
+    letter-spacing: 1.2px;
+    font-size: 2.5rem;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  /* Options Grid */
+  .conversion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .conversion-option {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .conversion-option:hover {
+    border-color: #ff5722;
+    box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
+  }
+  .conversion-option input[type="radio"] {
+    margin-top: 5px;
+    accent-color: #ff5722;
+    width: 22px;
+    height: 22px;
+  }
+  .conversion-option label {
+    font-weight: 600;
+    font-size: 1.15rem;
+    user-select: none;
+  }
+  .conversion-option p {
+    margin: 6px 0 0 36px;
+    color: #777;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  /* Input styling */
+  .input-section label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 10px;
+    color: #222;
+  }
+  .input-section input[type="text"] {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  .input-section input[type="text"]:focus {
+    border-color: #ff5722;
+    box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+    outline: none;
+  }
+
+  /* Submit button */
+  .submit-section {
+    text-align: center;
+  }
+  .submit-btn {
+    background: linear-gradient(135deg, #ff5722, #ff7043);
+    padding: 16px 56px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgb(255 87 34 / 0.4);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 1px;
+  }
+  .submit-btn:hover {
+    background: linear-gradient(135deg, #e64a19, #d84315);
+    box-shadow: 0 12px 22px rgb(230 74 25 / 0.6);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 30px 25px;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .conversion-option p {
+      font-size: 0.85rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main">
+    <h1>🔢 Number System Converter</h1>
+    <form action="/cgi-bin/converter.cgi" method="post" aria-label="Number conversion form">
+      <div class="conversion-grid" role="radiogroup" aria-labelledby="conversion-label">
+        <span id="conversion-label" class="sr-only">Select conversion type:</span>
+
+        <div class="conversion-option">
+          <input type="radio" id="dec2bin" name="conversion" value="dec2bin" checked aria-checked="true" />
+          <label for="dec2bin">Decimal to Binary</label>
+          <p>Convert decimals like 42 to binary like 101010</p>
+        </div>
+
+        <div class="conversion-option">
+          <input type="radio" id="bin2dec" name="conversion" value="bin2dec" aria-checked="false" />
+          <label for="bin2dec">Binary to Decimal</label>
+          <p>Convert binary numbers like 101010 to decimal like 42</p>
+        </div>
+
+        <div class="conversion-option">
+          <input type="radio" id="dec2oct" name="conversion" value="dec2oct" aria-checked="false" />
+          <label for="dec2oct">Decimal to Octal</label>
+          <p>Convert decimal like 42 to octal like 52</p>
+        </div>
+
+        <div class="conversion-option">
+          <input type="radio" id="oct2dec" name="conversion" value="oct2dec" aria-checked="false" />
+          <label for="oct2dec">Octal to Decimal</label>
+          <p>Convert octal like 52 to decimal like 42</p>
+        </div>
+
+        <div class="conversion-option">
+          <input type="radio" id="dec2hex" name="conversion" value="dec2hex" aria-checked="false" />
+          <label for="dec2hex">Decimal to Hexadecimal</label>
+          <p>Convert decimal 42 to hexadecimal 2A</p>
+        </div>
+
+        <div class="conversion-option">
+          <input type="radio" id="hex2dec" name="conversion" value="hex2dec" aria-checked="false" />
+          <label for="hex2dec">Hexadecimal to Decimal</label>
+          <p>Convert hexadecimal 2A to decimal 42</p>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <label for="input">Enter your number:</label>
+        <input type="text" id="input" name="input" placeholder="Enter the number to convert" required autocomplete="off" />
+      </div>
+
+      <div class="submit-section">
+        <button type="submit" class="submit-btn" aria-label="Convert number">🚀 Convert Number</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
